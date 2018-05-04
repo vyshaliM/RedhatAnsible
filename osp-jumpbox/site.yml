@@ -1,0 +1,44 @@
+- hosts: jumpbox
+  #  become: yes
+  roles:
+     - osp-network
+     - osp-keypair
+     - osp-securitygroup
+  tasks:
+  ##Create app,db,frontend Instances
+  - name: Create app,db,frontend instances
+    include_role:
+       name: osp-server
+  - name: Gather facts
+    include_role: 
+       name: osp-facts
+  
+- name: setup haproxy
+  hosts: frontends
+  become: yes
+  roles:
+     - basic-config
+     - haproxy
+
+- name: setup tomcat
+  hosts: apps
+  become: yes
+  gather_facts: false
+  roles:
+    - basic-config
+    - tomcat
+
+- name: setup database tier
+  become: yes
+  hosts: appdbs
+  roles:
+    - basic-config
+    - geerlingguy.postgresql
+
+- name: setup apache
+  hosts: apps
+  become: yes
+  gather_facts: false
+  roles:
+    - basic-config
+    - apache

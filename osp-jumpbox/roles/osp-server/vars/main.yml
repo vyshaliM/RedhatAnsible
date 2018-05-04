@@ -1,0 +1,34 @@
+---
+ osp_servers:
+    app1:
+      name: app1
+      flavor: m2.small
+      keypair: ansible_ssh
+      image: rhel-guest
+      security_group: app_servers
+      meta:
+        - {group: apps, deployment_name: QA}
+    app2:
+      name: app2
+      flavor: m2.small
+      keypair: ansible_ssh
+      image: rhel-guest
+      security_group: app_servers
+      meta:
+        - {group: apps, deployment_name: QA}
+    db:
+      name: db
+      flavor: m2.small
+      keypair: ansible_ssh
+      image: rhel-guest
+      security_group: db_servers
+      meta:
+        - {group: appdbs, deployment_name: QA}
+    frontend:
+      name: frontend
+      flavor: m2.small
+      keypair: ansible_ssh
+      image: rhel-guest
+      security_group: frontend_servers
+      meta:
+        - {group: frontends, deployment_name: QA}      

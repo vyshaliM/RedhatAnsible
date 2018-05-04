@@ -1,0 +1,15 @@
+- hosts: jumpbox
+  #  become: yes
+  roles:
+     - osp-network
+     - osp-keypair
+     - osp-securitygroup
+  tasks:
+  ##Create app,db,frontend Instances
+  - name: Create app,db,frontend instances
+    include_role:
+       name: osp-server
+  - name: Gather facts
+    include_role: 
+       name: osp-facts
+  

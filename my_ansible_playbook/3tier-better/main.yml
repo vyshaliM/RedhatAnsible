@@ -4,7 +4,7 @@
   roles:
     - basic-config
   tags:
-    - setup-repos
+    - basic-config
 
 - name: setup haproxy
   hosts: frontends
@@ -12,7 +12,7 @@
   roles:    
     - haproxy
   tags:
-    - setup-haproxy
+    - haproxy
 
 - name: setup tomcat
   hosts: apps
@@ -21,7 +21,7 @@
   roles:
     - tomcat
   tags:
-    - setup-tomcat
+    - tomcat
 
 - name: setup database tier
   become: yes
@@ -29,11 +29,13 @@
   roles:    
     - geerlingguy.postgresql
   tags:
-    - setup-postgresql
+    - postgresql
 
 - name: setup apache
   hosts: apps
   become: yes
   gather_facts: false
   roles:    
+    - apache
+  tags:
     - apache

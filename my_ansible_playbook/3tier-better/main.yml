@@ -1,41 +1,31 @@
 ---
-- name: setup repos
+- name: basic config
   hosts: all
   roles:
-    - basic-config
-  tags:
-    - basic-config
-
+    - {name: basic-config, tags: basic-config}
+  
 - name: setup haproxy
   hosts: frontends
   become: yes
   roles:    
-    - haproxy
-  tags:
-    - haproxy
+    - {name: haproxy, tags: haproxy}
 
 - name: setup tomcat
   hosts: apps
   become: yes
   gather_facts: false
   roles:
-    - tomcat
-  tags:
-    - tomcat
-
+    - {name: tomcat, tags: tomcat}
+  
 - name: setup database tier
   become: yes
   hosts: appdbs
   roles:    
-    - geerlingguy.postgresql
-  tags:
-    - postgresql
-
+    - {name: geerlingguy.postgresql, tags: postgresql}
+  
 - name: setup apache
   hosts: apps
   become: yes
   gather_facts: false
   roles:    
-    - apache
-  tags:
-    - apache
+    - {name: apache, tags: apache}
